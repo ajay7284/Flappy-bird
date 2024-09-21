@@ -1,6 +1,5 @@
 "use client";
 
-import HomePage from "@/components/HomePage";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./globals.css";
 import "../components/Home.css";
@@ -171,73 +170,73 @@ const GameCanvas: React.FC<{ onGameOver: (score: number) => void; onScoreUpdate:
 }
 
 // ... (Leaderboard and TronWallet components remain unchanged)
-const Leaderboard: React.FC = () => {
-  const [scores, setScores] = useState([
-    { name: "Player 1", score: 100 },
-    { name: "Player 2", score: 80 },
-    { name: "Player 3", score: 60 },
-  ]);
+// const Leaderboard: React.FC = () => {
+//   const [scores, setScores] = useState([
+//     { name: "Player 1", score: 100 },
+//     { name: "Player 2", score: 80 },
+//     { name: "Player 3", score: 60 },
+//   ]);
 
-  return (
-    <div className="w-64 bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-2">Leaderboard</h2>
-      <ul>
-        {scores.map((score, index) => (
-          <li key={index} className="mb-1">
-            {score.name}: {score.score}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+//   return (
+//     <div className="w-64 bg-white p-4 rounded-lg shadow-md">
+//       <h2 className="text-xl font-bold mb-2">Leaderboard</h2>
+//       <ul>
+//         {scores.map((score, index) => (
+//           <li key={index} className="mb-1">
+//             {score.name}: {score.score}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
 
 // TronWallet Component
-const TronWallet: React.FC = () => {
-  const [address, setAddress] = useState("");
-  const [balance, setBalance] = useState(0);
+// const TronWallet: React.FC = () => {
+//   const [address, setAddress] = useState("");
+//   const [balance, setBalance] = useState(0);
 
-  useEffect(() => {
-    const connectWallet = async () => {
-      if (
-        typeof window !== "undefined" &&
-        window.tronWeb &&
-        window.tronWeb.defaultAddress.base58
-      ) {
-        setAddress(window.tronWeb.defaultAddress.base58);
-        const balanceResult = await window.tronWeb.trx.getBalance(
-          window.tronWeb.defaultAddress.base58
-        );
-        // setBalance(window.tronWeb.fromSun(balanceResult));
-      }
-    };
+//   useEffect(() => {
+//     const connectWallet = async () => {
+//       if (
+//         typeof window !== "undefined" &&
+//         window.tronWeb &&
+//         window.tronWeb.defaultAddress.base58
+//       ) {
+//         setAddress(window.tronWeb.defaultAddress.base58);
+//         const balanceResult = await window.tronWeb.trx.getBalance(
+//           window.tronWeb.defaultAddress.base58
+//         );
+//         // setBalance(window.tronWeb.fromSun(balanceResult));
+//       }
+//     };
 
-    connectWallet();
-  }, []);
+//     connectWallet();
+//   }, []);
 
-  return (
-    <div className="text-center bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-2">Tron Wallet</h2>
-      {address ? (
-        <>
-          <p className="mb-2">
-            Address: {address.slice(0, 6)}...{address.slice(-4)}
-          </p>
-          <p>Balance: {balance} TRX</p>
-        </>
-      ) : (
-        <button
-          onClick={() =>
-            window.tronWeb?.request({ method: "tron_requestAccounts" })
-          }
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-        >
-          Connect Wallet
-        </button>
-      )}
-    </div>
-  );
-};
+//   return (
+//     <div className="text-center bg-white p-4 rounded-lg shadow-md">
+//       <h2 className="text-xl font-bold mb-2">Tron Wallet</h2>
+//       {address ? (
+//         <>
+//           <p className="mb-2">
+//             Address: {address.slice(0, 6)}...{address.slice(-4)}
+//           </p>
+//           <p>Balance: {balance} TRX</p>
+//         </>
+//       ) : (
+//         <button
+//           onClick={() =>
+//             window.tronWeb?.request({ method: "tron_requestAccounts" })
+//           }
+//           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+//         >
+//           Connect Wallet
+//         </button>
+//       )}
+//     </div>
+//   );
+// };
 // Main Game Component
 export default function FlappyBirdGame() {
   const [gameState, setGameState] = useState("menu");
