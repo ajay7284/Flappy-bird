@@ -1,0 +1,170 @@
+/* Home.css */
+.home {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../public/image/bg2.jpg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.8; /* Adjust the opacity here */
+    z-index: -1; /* Ensures the background stays behind the content */
+  }
+  
+  .main {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .game-canvas{
+  
+  }
+  
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 25px; /* Spacing between buttons */
+  }
+  
+  .game-button {
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    width: 200px;
+  }
+  
+  
+.start-button {
+    background-color: #790238; /* Using the theme color */
+    color: white;
+  }
+  
+  .start-button:hover {
+    background-color: #6e0232; /* Slightly darker shade for hover */
+  }
+  
+  .one-vs-one-button {
+    background-color: #790238; /* Same theme color for consistency */
+    color: white;
+  }
+  
+  .one-vs-one-button:hover {
+    background-color: #6e0232; /* Hover effect */
+  }
+  
+  /* Optional: Adding a hover effect for the entire container */
+  .button-container:hover .game-button {
+    transform: scale(1.05);
+  }
+
+  /* Game Over Screen Styles */
+.game-over-container {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+    border-radius: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Soft shadow for effect */
+  }
+  
+  .game-over-title {
+    font-size: 2.5rem; /* Large font size for the title */
+    font-weight: bold;
+    color: #fff; /* Using the theme color */
+    margin-bottom: 20px;
+  }
+  
+  .game-score,
+  .game-high-score {
+    font-size: 1.5rem; /* Text size for scores */
+    color: white; /* White text for readability */
+    margin-bottom: 15px;
+  }
+  
+  .game-over-button {
+    padding: 15px 40px;
+    font-size: 1.25rem;
+    background-color: #790238; /* Theme color */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .game-over-button:hover {
+    background-color: #6e0232; /* Darker hover effect */
+  }
+  
+  /* Styles for the Game Title */
+/* Styles for the Game Title */
+.game-title {
+    font-size: 4rem;  /* Large font size */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    background: white; /* Gradient using theme */
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent; /* For gradient text effect */
+    text-shadow: 0 0 5px rgba(121, 2, 56, 0.5), 0 0 10px rgba(199, 75, 127, 0.4); /* Soft shadow */
+    letter-spacing: 2px; /* Adds spacing between the letters */
+  }
+  
+  /* Animation for glow effect */
+
+  .main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .score-display {
+    position: absolute;
+    top: 1rem; /* or 4 for your original value */
+    left: 1rem; /* or 4 for your original value */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: white;
+    padding: 0.5rem 1rem; /* Vertical and horizontal padding */
+    border-radius: 0.5rem; /* Rounded corners */
+  }
+  
+  @media (min-width: 360px) and (max-width: 720px) {
+    .game-title {
+      font-size: 1.5rem;
+    }
+    
+    .button-container {
+        flex-direction:column;
+      }
+      
+    
+    /* Adjust canvas size */
+    canvas {
+      width: 100%;
+      height: auto;
+    }
+  }
