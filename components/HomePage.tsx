@@ -1,6 +1,5 @@
 // pages/index.js
 import { motion } from "framer-motion";
-import Link from "next/link";
 import "./Home.css"; // CSS for styling the page
 
 export default function HomePage() {

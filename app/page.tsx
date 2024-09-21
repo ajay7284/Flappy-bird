@@ -6,6 +6,8 @@ import "./globals.css";
 import "../components/Home.css";
 import { motion } from "framer-motion";
 
+
+
 // Game Canvas Component
 const GameCanvas: React.FC<{ onGameOver: (score: number) => void; onScoreUpdate: (score: number) => void }> = ({ onGameOver, onScoreUpdate }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -199,14 +201,14 @@ const TronWallet: React.FC = () => {
     const connectWallet = async () => {
       if (
         typeof window !== "undefined" &&
-        (window as any).tronWeb &&
-        (window as any).tronWeb.defaultAddress.base58
+        window.tronWeb &&
+        window.tronWeb.defaultAddress.base58
       ) {
-        setAddress((window as any).tronWeb.defaultAddress.base58);
-        const balanceResult = await (window as any).tronWeb.trx.getBalance(
-          (window as any).tronWeb.defaultAddress.base58
+        setAddress(window.tronWeb.defaultAddress.base58);
+        const balanceResult = await window.tronWeb.trx.getBalance(
+          window.tronWeb.defaultAddress.base58
         );
-        setBalance((window as any).tronWeb.fromSun(balanceResult));
+        // setBalance(window.tronWeb.fromSun(balanceResult));
       }
     };
 
@@ -226,7 +228,7 @@ const TronWallet: React.FC = () => {
       ) : (
         <button
           onClick={() =>
-            (window as any).tronWeb.request({ method: "tron_requestAccounts" })
+            window.tronWeb?.request({ method: "tron_requestAccounts" })
           }
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
         >
