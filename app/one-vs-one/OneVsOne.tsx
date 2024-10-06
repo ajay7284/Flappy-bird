@@ -8,6 +8,7 @@ import GameMain from "./GameMain";
 export default function OneVsOne() {
   const [gameState, setGameState] = useState("menu");
   const [digits, setDigits] = useState(['', '', '', '', '', ''])
+  const [lobbyStatus, setLobbyStatus] = useState("start");
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
   const sixDigitNumber = "123456"; // Replace this with your actual number
   const handleNavigateToHome = () => {
@@ -199,9 +200,9 @@ export default function OneVsOne() {
         )
       }
       {
-        gameState === "join-lobby" && <GameLobby   gameState={gameState} setGameState={setGameState}  />
+        gameState === "join-lobby" && <GameLobby   gameState={gameState} setGameState={setGameState}  lobbyStatus={lobbyStatus}/>
       }
-      <GameMain gameState={gameState} setGameState={setGameState} />
+      <GameMain gameState={gameState} setGameState={setGameState} setLobbyStatus={setLobbyStatus} />
     </>
   );
 }
