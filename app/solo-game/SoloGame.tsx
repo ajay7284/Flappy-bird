@@ -100,6 +100,9 @@ export default function SoloGame() {
 useEffect(() => {
   fetchHighestScore();
 }, [address]);
+const handleNavigateToHome = () => {
+  window.location.href = "/";
+}
 
   return (
     <div className="solo-game">
@@ -152,6 +155,10 @@ useEffect(() => {
                     <div className="image" onClick={() => setGameState("menu")}>
                       <img src="/icons/back.png" alt="" />
                     </div>
+                    <div className="image" onClick={handleNavigateToHome}>
+                      <img src="/icons/home.png" alt="" />
+                    </div>
+                    
                   </div>
                   <h1 className="game-over-title">Game Over</h1>
                   <div className="score-list">
