@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./OneVsOne.css";
 import { motion } from "framer-motion";
+import GameLobby from "./GameLobby";
+import GameMain from "./GameMain";
 
 export default function OneVsOne() {
   const [gameState, setGameState] = useState("menu");
@@ -129,6 +131,7 @@ export default function OneVsOne() {
                whileTap={{ scale: 0.9 }}
                className="game-button start-button"
                style={{ marginTop: "20px" }}
+               onClick={() => setGameState("join-lobby")}
              >
                Join lobby
              </motion.button>
@@ -155,7 +158,9 @@ export default function OneVsOne() {
           {digits.map((digit, index) => (
             <input
               key={index}
-              ref={el => inputRefs.current[index] = el}
+              ref={(el) => {
+                inputRefs.current[index] = el;
+              }}               
               type="text"
               inputMode="numeric"
               value={digit}
@@ -183,6 +188,7 @@ export default function OneVsOne() {
                 whileTap={{ scale: 0.9 }}
                 className="game-button start-button"
                 style={{ marginTop: "20px" }}
+                onClick={()=> setGameState("join-lobby")}
               >
                 Join lobby
               </motion.button>
@@ -192,6 +198,10 @@ export default function OneVsOne() {
           
         )
       }
+      {
+        gameState === "join-lobby" && <GameLobby   gameState={gameState} setGameState={setGameState}  />
+      }
+      <GameMain gameState={gameState} setGameState={setGameState} />
     </>
   );
 }
