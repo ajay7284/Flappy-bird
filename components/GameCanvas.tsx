@@ -39,7 +39,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver, onScoreUpdate }) =>
 
     // Load the bird image
     const birdImage = new Image();
-    birdImage.src = "/image/bird.png";  // Path to your bird image
+    birdImage.src = "/image/pngwing.com.png";  // Path to your bird image
     birdImageRef.current = birdImage;
 
     const bird = {
