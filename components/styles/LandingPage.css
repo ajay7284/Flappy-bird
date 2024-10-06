@@ -60,7 +60,7 @@
     /* min-height: 100vh; */
     display: flex;
     flex-direction: column;
-    background: url("/image/bg2.jpg") no-repeat center center;
+    background: url("/image/bird.avif") no-repeat center center;
     background-size: cover;
     background-position: center;
     /* font-family: 'Arial', sans-serif; */
@@ -76,4 +76,67 @@
     justify-content: center;
   }
 
+  .sound-options-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    padding: 1rem;
+  }
   
+  .sound-options-modal {
+    background-color: #3E2723; /* Approximation of brown-900 */
+    border: 4px solid #F59E0B; /* yellow-500 */
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    max-width: 24rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .sound-options-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #F59E0B; /* yellow-500 */
+    font-family: 'Pixel', sans-serif; /* Assuming you have a pixel font */
+  }
+  
+  .sound-options-text {
+    margin-bottom: 1.5rem;
+    color: white;
+    font-family: 'Pixel', sans-serif;
+  }
+  
+  .sound-options-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .sound-options-button {
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+    font-family: 'Pixel', sans-serif;
+  }
+  
+  .sound-options-button-no {
+    background-color: #EF4444; /* red-500 */
+  }
+  
+  .sound-options-button-no:hover {
+    background-color: #DC2626; /* red-600 */
+  }
+  
+  .sound-options-button-yes {
+    background-color: #10B981; /* green-500 */
+  }
+  
+  .sound-options-button-yes:hover {
+    background-color: #059669; /* green-600 */
+  }

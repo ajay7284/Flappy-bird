@@ -90,25 +90,30 @@ export default function RootLayout({ children }: RootLayoutProps) {
       </div>
             {/* Sound Choice Popup */}
             {showSoundPopup && (
-              <div className="overlay">
-                <div className="dialog">
-                  <p>Do you want to play the game with sound?</p>
-                  <div className="dialog-buttons">
-                    <button
-                      className="dialog-button dialog-button-secondary"
-                      onClick={() => handleSoundChoice(false)}
-                    >
-                      No
-                    </button>
-                    <button
-                      className="dialog-button dialog-button-primary"
-                      onClick={() => handleSoundChoice(true)}
-                    >
-                      Yes
-                    </button>
-                  </div>
-                </div>
-              </div>
+             <div className="sound-options-overlay">
+             <div className="sound-options-modal">
+               <h2 className="sound-options-title">
+                 Sound Options
+               </h2>
+               <p className="sound-options-text">
+                 Do you want to play the game with sound?
+               </p>
+               <div className="sound-options-buttons">
+                 <button
+                   className="sound-options-button sound-options-button-no"
+                   onClick={() => handleSoundChoice(false)}
+                 >
+                   No
+                 </button>
+                 <button
+                   className="sound-options-button sound-options-button-yes"
+                   onClick={() => handleSoundChoice(true)}
+                 >
+                   Yes
+                 </button>
+               </div>
+             </div>
+           </div>
             )}
 
             {/* Sound Toggle Button */}
