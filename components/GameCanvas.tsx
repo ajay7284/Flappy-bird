@@ -64,23 +64,59 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver, onScoreUpdate }) =>
       }
     };
 
-    const drawPipes = () => {
-      ctx.fillStyle = "#790238";
-      ctx.shadowColor = "#ffcc00";
-      ctx.shadowBlur = 20;
+const drawPipes = () => {
+      ctx.shadowColor = "transparent"
 
       pipes.forEach((pipe) => {
-        ctx.fillRect(pipe.x, 0, pipeWidth, pipe.topHeight);
-        ctx.fillRect(
-          pipe.x,
-          pipe.topHeight + pipeGap,
-          pipeWidth,
-          canvas.height - pipe.topHeight - pipeGap
-        );
-      });
+        // Main pipe color
+        ctx.fillStyle = "#790238"
 
-      ctx.shadowColor = "transparent";
-    };
+        // Draw top pipe
+        drawPixelatedRect(ctx, pipe.x, 0, pipeWidth, pipe.topHeight)
+
+        // Draw bottom pipe
+        drawPixelatedRect(ctx, pipe.x, pipe.topHeight + pipeGap, pipeWidth, canvas.height - pipe.topHeight - pipeGap)
+
+        // Highlight color
+        ctx.fillStyle = "#9C0849"
+
+        // Draw highlights
+        drawPixelatedRect(ctx, pipe.x, 0, 4, pipe.topHeight)
+        drawPixelatedRect(ctx, pipe.x, pipe.topHeight + pipeGap, 4, canvas.height - pipe.topHeight - pipeGap)
+
+        // Shadow color
+        ctx.fillStyle = "#5C0129"
+
+        // Draw shadows
+        drawPixelatedRect(ctx, pipe.x + pipeWidth - 4, 0, 4, pipe.topHeight)
+        drawPixelatedRect(ctx, pipe.x + pipeWidth - 4, pipe.topHeight + pipeGap, 4, canvas.height - pipe.topHeight - pipeGap)
+
+        // Draw pipe caps
+        drawPipeCap(ctx, pipe.x, pipe.topHeight - 20, pipeWidth)
+        drawPipeCap(ctx, pipe.x, pipe.topHeight + pipeGap, pipeWidth)
+      })
+    }
+
+    const drawPixelatedRect = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) => {
+      const pixelSize = 4
+      for (let i = 0; i < width; i += pixelSize) {
+        for (let j = 0; j < height; j += pixelSize) {
+          ctx.fillRect(x + i, y + j, pixelSize, pixelSize)
+        }
+      }
+    }
+
+    const drawPipeCap = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number) => {
+      const capHeight = 20
+      ctx.fillStyle = "#790238"
+      drawPixelatedRect(ctx, x - 4, y, width + 8, capHeight)
+      
+      ctx.fillStyle = "#9C0849"
+      drawPixelatedRect(ctx, x - 4, y, 4, capHeight)
+      
+      ctx.fillStyle = "#5C0129"
+      drawPixelatedRect(ctx, x + width, y, 4, capHeight)
+    }
 
     const drawScore = () => {
       ctx.fillStyle = "white";
