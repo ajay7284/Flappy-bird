@@ -1,4 +1,4 @@
-/* Home.css */
+Home.css
 .home {
   position: relative;
   height: 100vh;
@@ -31,8 +31,6 @@
   flex-direction: column;
 }
 
-.game-canvas {
-}
 
 .button-container {
   display: flex;
@@ -54,21 +52,21 @@
 }
 
 .start-button {
-  background-color: #790238; /* Using the theme color */
+  background-color: #F61F44; /* New theme color */
   color: white;
 }
 
 .start-button:hover {
-  background-color: #6e0232; /* Slightly darker shade for hover */
+  background-color: #d3193a; /* Slightly darker shade for hover */
 }
 
 .one-vs-one-button {
-  background-color: #790238; /* Same theme color for consistency */
+  background-color: #F61F44; /* Same theme color for consistency */
   color: white;
 }
 
 .one-vs-one-button:hover {
-  background-color: #6e0232; /* Hover effect */
+  background-color: #d3193a; /* Hover effect */
 }
 
 /* Optional: Adding a hover effect for the entire container */
@@ -91,7 +89,7 @@
 .game-over-title {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #fff;
+  color: #ffffff;
   margin: 20px auto;
 }
 
@@ -130,20 +128,31 @@
   width: 60px;
   margin: 0 auto;
   margin-top: 20px;
-  background-color: #333;
+  background-color: #F61F44;
   border-radius: 50%;
   border: 3px solid wheat;
   cursor: pointer;
 }
 .play-again img,
 .image img , .leaderboard-icon img {
-  height: 30px;
-  width: 30px;
+  height: 80%;
+  width: 80%;
   margin: 0 auto;
   object-fit: contain;
+  border-radius: 50%;
 }
 .image {
   margin: 0;
+}
+
+.leaderboard-icon-container{
+  display: flex;
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  align-items: center;
+  gap: 15px;  
+  justify-content: center;
 }
 .leaderboard-icon{
   display: flex;
@@ -152,14 +161,10 @@
   height: 60px;
   width: 60px;
   margin: 0 auto;
-  margin-top: 20px;
   background-color: #333;
   border-radius: 50%;
   border: 3px solid wheat;
   cursor: pointer;
-  position: fixed;
-  right: 30px;
-  top: 30px;
 }
 .game-title {
   font-size: 2.5rem; /* Large font size */
@@ -170,7 +175,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent; /* For gradient text effect */
-  text-shadow: 0 0 5px rgba(121, 2, 56, 0.5), 0 0 10px rgba(199, 75, 127, 0.4); /* Soft shadow */
   letter-spacing: 2px; /* Adds spacing between the letters */
 }
 
@@ -184,16 +188,17 @@
 }
 
 .score-display {
-  position: absolute;
-  top: 1rem; /* or 4 for your original value */
-  left: 1rem; /* or 4 for your original value */
+  position: fixed;
+  top: 50px;
+  left: 50%; 
+  transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
   color: white;
   padding: 0.5rem 1rem; /* Vertical and horizontal padding */
   border-radius: 0.5rem; /* Rounded corners */
 }
 .how-to-play-popup {
-  background-color: rgba(121, 2, 56, 0.9);
+  background-color: rgba(246, 31, 68, 0.9); /* Adjusted theme color */
   backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 30px;
@@ -228,7 +233,7 @@
   align-items: center;
   justify-content: center;
   background-color: #ffcc00;
-  color: #790238;
+  color: #F61F44; /* Theme color */
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -245,6 +250,7 @@
 .play-button svg {
   margin-right: 10px;
 }
+
 .countdown-container {
   position: absolute;
   top: 50%;

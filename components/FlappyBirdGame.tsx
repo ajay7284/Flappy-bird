@@ -1,12 +1,16 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "../app/globals.css";
-import "./Home.css";
+// import "./Home.css";
 import { motion } from "framer-motion";
 import Leaderboard from "./Leaderboard";
 import GameCanvas from "./GameCanvas";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount } from "wagmi";
 
 export default function FlappyBirdGame() {
+     const {address} = useAccount();
+  //  const [walletAddress, setWalletAddress] = useState(address);
     const [gameState, setGameState] = useState("menu");
     const [score, setScore] = useState(0);
     const [highScore, setHighScore] = useState(0);
@@ -18,7 +22,39 @@ export default function FlappyBirdGame() {
     const menuAudioRef = useRef<HTMLAudioElement | null>(null);
     const gameAudioRef = useRef<HTMLAudioElement | null>(null);
     const gameOverRef = useRef<HTMLAudioElement | null>(null);
+
+
+    const fetchHighestScore = async () => {
+      if (!address) return; // Return early if no address
   
+      try {
+          const response = await fetch('/api/getHighestScore', {
+              method: 'POST', // Use POST method
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ address }), // Submit address in body
+          });
+  
+  
+          if (!response.ok) {
+              const errorData = await response.json();
+              console.error('Error Data:', errorData); // Log error data
+              throw new Error(errorData.message || 'Failed to fetch highest score');
+          }
+  
+          const data = await response.json();
+          setHighScore(data.highestScore);
+      } catch (error) {
+          console.error('Error fetching highest score:', error);
+      }
+  };
+  
+
+  useEffect(() => {
+      fetchHighestScore();
+  }, [address]); // Run effect when address changes
+
     useEffect(() => {
       menuAudioRef.current = new Audio("/audio/home.m4a");
       gameAudioRef.current = new Audio("/audio/game.m4a");
@@ -92,15 +128,42 @@ export default function FlappyBirdGame() {
       setCountdown(4);
       setScore(0);
     };
-  
-    const endGame = (finalScore: number) => {
-      setGameState("gameOver");
-      setScore(finalScore);
-  
-      if (finalScore > highScore) {
-        setHighScore(finalScore);
+    const submitScore = async (address: string, score: number) => {
+        try {
+          const response = await fetch("/api/score", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ address, score }),
+          });
+    
+          const data = await response.json();
+          if (response.ok) {
+            console.log("Score submitted successfully:", data);
+          } else {
+            console.error("Error submitting score:", data.message);
+          }
+        } catch (error) {
+          console.error("Error submitting score:", error);
+        }
       }
-    };
+      const endGame = (finalScore: number) => {
+        setGameState("gameOver");
+        setScore(finalScore);
+      
+        if (finalScore > highScore) {
+          setHighScore(finalScore);
+        }
+      
+        // Ensure address is defined before submitting the score
+        if (address) {
+          submitScore(address, finalScore);
+        } else {
+          console.error("Cannot submit score: Wallet address is undefined");
+        }
+      };
+      
   
     const updateScore = useCallback((newScore: number) => {
       setScore(newScore);
@@ -130,9 +193,10 @@ export default function FlappyBirdGame() {
           .catch((error) => console.error("Error playing menu audio:", error));
       }
     };
-  
+  console.log(highScore)
     return (
       <div className="home">
+        {/* <ConnectButton/> */}
         <div className="main">
           {showSoundPopup && (
             <div className="overlay">
@@ -217,9 +281,14 @@ export default function FlappyBirdGame() {
                       <img src="/icons/mute.png" alt="" />
                     )}
                   </div>
+                  <div className="leaderboard-icon-container">
+                   
+                  <ConnectButton/>
                   <div className="leaderboard-icon" onClick={() => setGameState("leaderboard")}>
                     <img src="/icons/leaderboard.png" alt="" />
                   </div>
+                  </div>
+
                 </>
               )}
   
@@ -239,9 +308,9 @@ export default function FlappyBirdGame() {
                     <div className="image" onClick={() => setSoundEnabled(!soundEnabled)}>
                     {
                       soundEnabled ? (
-                        <img src='/icons/music.png' alt=''/>
+                        <img src='/icons/unmute.png' alt=''/>
                       ):(
-                        <img src='/icons/nomusic.png' alt=''/>
+                        <img src='/icons/mute.png' alt=''/>
                       )
                      }                  </div>
                   </div>

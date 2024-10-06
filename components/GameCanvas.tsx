@@ -13,6 +13,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver, onScoreUpdate }) =>
   const scoreRef = useRef(0);
   const scoreSoundRef = useRef<HTMLAudioElement | null>(null);
   const collisionSoundRef = useRef<HTMLAudioElement | null>(null);
+  const birdImageRef = useRef<HTMLImageElement | null>(null);  // For bird image
 
   const updateScore = useCallback(
     (newScore: number) => {
@@ -36,6 +37,11 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver, onScoreUpdate }) =>
     scoreSoundRef.current.load();
     collisionSoundRef.current.load();
 
+    // Load the bird image
+    const birdImage = new Image();
+    birdImage.src = "/image/bird.png";  // Path to your bird image
+    birdImageRef.current = birdImage;
+
     const bird = {
       x: 50,
       y: canvas.height / 2,
@@ -53,10 +59,9 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver, onScoreUpdate }) =>
     const pipeSpeed = 2;
 
     const drawBird = () => {
-      ctx.fillStyle = "yellow";
-      ctx.beginPath();
-      ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
-      ctx.fill();
+      if (birdImageRef.current) {
+        ctx.drawImage(birdImageRef.current, bird.x - bird.radius, bird.y - bird.radius, bird.radius * 2, bird.radius * 2);
+      }
     };
 
     const drawPipes = () => {
