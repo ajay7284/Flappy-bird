@@ -1,4 +1,4 @@
-import FlappyBirdGame from '@/components/FlappyBirdGame'
+// import FlappyBirdGame from '@/components/FlappyBirdGame'
 import React from 'react'
 import '@rainbow-me/rainbowkit/styles.css';
 import LandingPage from '@/components/LandingPage'
