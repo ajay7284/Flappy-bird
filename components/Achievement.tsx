@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "@/components/styles/Achievement.css";
 
 type Player = {
-  id: string; // Adjusted to string to match the MongoDB ObjectId
+  id: string;
   walletAddress: string;
   highestScore: number;
 };
@@ -24,10 +25,7 @@ export default function Achievement({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target as Node)
-      ) {
+      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     }
@@ -41,10 +39,8 @@ export default function Achievement({
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch('/api/players'); // Assuming the API route is `/api/players`
+        const response = await fetch('/api/players');
         const data = await response.json();
-
-        // Sort players by highest score in descending order
         const sortedPlayers = data.sort((a: Player, b: Player) => b.highestScore - a.highestScore);
         setPlayers(sortedPlayers);
       } catch (error) {
@@ -58,49 +54,69 @@ export default function Achievement({
   }, []);
 
   return (
-    <div className="achievement-overlay">
-      <div className="achievement-popup" ref={popupRef}>
-        <div
-          className="image"
-          onClick={() => setIsOpen(false)}
-          style={{ cursor: "pointer", height: "30px", width: "30px" }}
+    <AnimatePresence>
+      <motion.div
+        className="achievement-overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div
+          className="achievement-popup"
+          ref={popupRef}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{ type: "spring", damping: 15, stiffness: 300 }}
         >
-          <img src="/icons/close.png" alt="Close" />
-        </div>
-        <h2 className="achievement-title">Game Achievements</h2>
-        <div className="achievement-content">
-          {loading ? (
-            <div className="loader-container">
-              <span className="loader" />
-            </div>
-          ) : (
-            <>
-              <div className="achievement-header">
-                <span>Rank</span>
-                <span>Player</span>
-                <span>Highest Score</span>
+          <button
+            className="close-button"
+            onClick={() => setIsOpen(false)}
+            aria-label="Close achievements popup"
+          >
+            <img src="/icons/close.png" alt="Close" />
+          </button>
+          <h2 className="achievement-title">Game Achievements</h2>
+          <div className="achievement-content">
+            {loading ? (
+              <div className="loader-container">
+                <span className="loader" />
               </div>
-              <ul className="player-list">
-                {players.map((player, index) => (
-                  <li key={player.id} className="player-item">
-                    <span className="player-rank">{index + 1}</span>
-                    <div className="player-info">
-                      <p className="player-address">
-                        {truncateAddress(player.walletAddress)}
-                      </p>
-                    </div>
-                    <div className="player-score">
-                      <p className="score-value">
-                        {player.highestScore.toLocaleString()}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+            ) : (
+              <>
+                <div className="achievement-header">
+                  <span>Rank</span>
+                  <span>Player</span>
+                  <span>Highest Score</span>
+                </div>
+                <ul className="player-list">
+                  {players.map((player, index) => (
+                    <motion.li
+                      key={player.id}
+                      className="player-item"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <span className="player-rank">{index + 1}</span>
+                      <div className="player-info">
+                        <p className="player-address">
+                          {truncateAddress(player.walletAddress)}
+                        </p>
+                      </div>
+                      <div className="player-score">
+                        <p className="score-value">
+                          {player.highestScore.toLocaleString()}
+                        </p>
+                      </div>
+                    </motion.li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

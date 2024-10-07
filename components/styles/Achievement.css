@@ -1,182 +1,142 @@
 .achievement-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .achievement-popup {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  .achievement-title {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .achievement-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .achievement-header {
-    display: grid;
-    grid-template-columns: 50px 1fr 120px;
-    gap: 10px;
-    font-weight: bold;
-    padding: 10px 0;
-    border-bottom: 2px solid #eaeaea;
-    position: sticky;
-    top: 0;
-    background-color: #ffffff;
-    z-index: 1;
-  }
-  
-  .player-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    flex-grow: 1;
-  }
-  
-  .player-item {
-    display: grid;
-    grid-template-columns: 50px 1fr 120px;
-    gap: 10px;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eaeaea;
-  }
-  
-  .player-rank {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-  }
-  
-  .player-info {
-    overflow: hidden;
-  }
-  
-  .player-address {
-    font-size: 14px;
-    color: #555;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .player-score {
-    text-align: right;
-  }
-  
-  .score-value {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
-    text-align: center;
-  }
-  
-  .top-score-badge {
-    background-color: #ffd700;
-    color: #333;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 12px;
-    display: inline-block;
-    margin-left: 10px;
-  }
-.loader-container{
-    margin: 0 auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
-  .loader {
-    width: 48px;
-    height: 48px;
-    border: 5px solid #FFF;
-    border-bottom-color: #FF3D00;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    } 
-  
-  @media (max-width: 480px) {
-    .achievement-popup {
-      padding: 15px;
-    }
-  
-    .achievement-title {
-      font-size: 20px;
-    }
-  
-    .achievement-header {
-      font-size: 14px;
-      grid-template-columns: 40px 1fr 80px;
-    }
-  
-    .player-item {
-      grid-template-columns: 40px 1fr 80px;
-    }
-  
-    .player-rank {
-      font-size: 16px;
-    }
-  
-    .player-address {
-      font-size: 12px;
-    }
-  
-    .score-value {
-      font-size: 14px;
-      margin-right: 25px;
-    }
-  
-    .top-score-badge {
-      font-size: 10px;
-      padding: 1px 4px;
-    }
+.achievement-popup {
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.close-button:hover {
+  transform: scale(1.1);
+}
+
+.close-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.achievement-title {
+  font-size: 2rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-content {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.achievement-header {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.player-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.player-item {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.player-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.player-rank {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.player-address {
+  color: #ffffff;
+  font-family: monospace;
+}
+
+.score-value {
+  color: #ffffff;
+  font-weight: bold;
+  text-align: right;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+  .achievement-popup {
+    padding: 1.5rem;
   }
+
+  .achievement-title {
+    font-size: 1.5rem;
+  }
+
+  .achievement-header,
+  .player-item {
+    font-size: 0.9rem;
+  }
+}
