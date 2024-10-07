@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { Press_Start_2P } from "next/font/google";
-import '@rainbow-me/rainbowkit/styles.css';
+import "@rainbow-me/rainbowkit/styles.css";
 import { Providers } from "../app/providers";
-import "../components/styles/LandingPage.css"
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import './globals.css';
+import "../components/styles/LandingPage.css";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import "./globals.css";
+import Achievement from "@/components/Achievement";
 
 const pressStart2P = Press_Start_2P({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   const [showSoundPopup, setShowSoundPopup] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [isOpen , setIsOpen] = useState(false)
   // const [gameState, setGameState] = useState<"menu" | "game">("menu");
 
   const menuAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -50,7 +52,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
 
     if (menuAudioRef.current) {
-      menuAudioRef.current.play().catch((error) => console.error("Menu audio playback failed:", error));
+      menuAudioRef.current
+        .play()
+        .catch((error) => console.error("Menu audio playback failed:", error));
       if (gameAudioRef.current) {
         gameAudioRef.current.pause();
       }
@@ -68,7 +72,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
     setShowSoundPopup(false);
 
     if (choice && menuAudioRef.current) {
-      menuAudioRef.current.play().catch((error) => console.error("Error playing menu audio:", error));
+      menuAudioRef.current
+        .play()
+        .catch((error) => console.error("Error playing menu audio:", error));
     }
   };
 
@@ -83,41 +89,54 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <div className="layout">
             <Head>
               <title>Bit Bird</title>
-              <meta name="description" content="Bit Bird - A Flappy Bird inspired game" />
+              <meta
+                name="description"
+                content="Bit Bird - A Flappy Bird inspired game"
+              />
               <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className="leaderboard-icon-container">
-        <ConnectButton />
-        <div className="image" onClick={handleNavigateToHome}>
-                      <img src="/icons/home.png" alt="" />
-                    </div>
-      </div>
+              <ConnectButton />
+              <div
+                className="image"
+                onClick={handleNavigateToHome}
+                style={{ cursor: "pointer" }}
+              >
+                <img src="/icons/home.png" alt="" />
+              </div>
+              <div
+                className="image"
+                onClick={() => setIsOpen(true)}
+                style={{ cursor: "pointer" }}
+              >
+                <img src="/icons/leaderboard.png" alt="" />
+              </div>
+            </div>
+            {isOpen && <Achievement setIsOpen={setIsOpen} />}
             {/* Sound Choice Popup */}
             {showSoundPopup && (
-             <div className="sound-options-overlay">
-             <div className="sound-options-modal">
-               <h2 className="sound-options-title">
-                 Sound Options
-               </h2>
-               <p className="sound-options-text">
-                 Do you want to play the game with sound?
-               </p>
-               <div className="sound-options-buttons">
-                 <button
-                   className="sound-options-button sound-options-button-no"
-                   onClick={() => handleSoundChoice(false)}
-                 >
-                   No
-                 </button>
-                 <button
-                   className="sound-options-button sound-options-button-yes"
-                   onClick={() => handleSoundChoice(true)}
-                 >
-                   Yes
-                 </button>
-               </div>
-             </div>
-           </div>
+              <div className="sound-options-overlay">
+                <div className="sound-options-modal">
+                  <h2 className="sound-options-title">Sound Options</h2>
+                  <p className="sound-options-text">
+                    Do you want to play the game with sound?
+                  </p>
+                  <div className="sound-options-buttons">
+                    <button
+                      className="sound-options-button sound-options-button-no"
+                      onClick={() => handleSoundChoice(false)}
+                    >
+                      No
+                    </button>
+                    <button
+                      className="sound-options-button sound-options-button-yes"
+                      onClick={() => handleSoundChoice(true)}
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+              </div>
             )}
 
             {/* Sound Toggle Button */}
@@ -141,13 +160,21 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <img
                   src="/icons/unmute.png"
                   alt="Unmute"
-                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                  }}
                 />
               ) : (
                 <img
                   src="/icons/mute.png"
                   alt="Mute"
-                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                  }}
                 />
               )}
             </div>
