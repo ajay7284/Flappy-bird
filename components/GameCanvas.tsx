@@ -13,7 +13,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver, onScoreUpdate }) =>
   const scoreRef = useRef(0);
   const scoreSoundRef = useRef<HTMLAudioElement | null>(null);
   const collisionSoundRef = useRef<HTMLAudioElement | null>(null);
-  const birdImageRef = useRef<HTMLImageElement | null>(null);  // For bird image
+  const birdImageRef = useRef<HTMLImageElement | null>(null);  
 
   const updateScore = useCallback(
     (newScore: number) => {

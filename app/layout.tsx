@@ -21,7 +21,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   const [showSoundPopup, setShowSoundPopup] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
-  const [gameState, setGameState] = useState<"menu" | "game">("menu");
+  // const [gameState, setGameState] = useState<"menu" | "game">("menu");
 
   const menuAudioRef = useRef<HTMLAudioElement | null>(null);
   const gameAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -49,7 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       return;
     }
 
-    if (gameState === "menu" && menuAudioRef.current) {
+    if (menuAudioRef.current) {
       menuAudioRef.current.play().catch((error) => console.error("Menu audio playback failed:", error));
       if (gameAudioRef.current) {
         gameAudioRef.current.pause();
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       if (menuAudioRef.current) menuAudioRef.current.pause();
       if (gameAudioRef.current) gameAudioRef.current.pause();
     };
-  }, [gameState, soundEnabled]);
+  }, [soundEnabled]);
 
   // Enable sound after user interaction
   const handleSoundChoice = (choice: boolean) => {
@@ -70,6 +70,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     if (choice && menuAudioRef.current) {
       menuAudioRef.current.play().catch((error) => console.error("Error playing menu audio:", error));
     }
+  };
+
+  const handleNavigateToHome = () => {
+    window.location.href = "/";
   };
 
   return (
@@ -84,9 +88,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </Head>
             <div className="leaderboard-icon-container">
         <ConnectButton />
-        <div className="leaderboard-icon">
-          <img src="/icons/leaderboard.png" alt="" />
-        </div>
+        <div className="image" onClick={handleNavigateToHome}>
+                      <img src="/icons/home.png" alt="" />
+                    </div>
       </div>
             {/* Sound Choice Popup */}
             {showSoundPopup && (

@@ -1,6 +1,6 @@
 import GameCanvas from '@/components/GameCanvas';
 import React, { useCallback, useEffect, useState } from 'react'
-import { useAccount } from 'wagmi';
+// import { useAccount } from 'wagmi';
 interface GameMainProps {
   gameState: string;
   setGameState: React.Dispatch<React.SetStateAction<string>>;
@@ -8,7 +8,7 @@ interface GameMainProps {
 }
 
 const GameMain: React.FC<GameMainProps> = ({ gameState, setGameState , setLobbyStatus }) => {
-  const {address} = useAccount();
+  // const {address} = useAccount();
   const [countdown, setCountdown] = useState(3);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -26,11 +26,11 @@ const GameMain: React.FC<GameMainProps> = ({ gameState, setGameState , setLobbyS
   }, [gameState, countdown]);
  
 
-  const startGame = () => {
-    setGameState("countdown");
-    setCountdown(4);
-    setScore(0);
-  };
+  // const startGame = () => {
+  //   setGameState("countdown");
+  //   setCountdown(4);
+  //   setScore(0);
+  // };
 
   const updateScore = useCallback((newScore: number) => {
     setScore(newScore);
