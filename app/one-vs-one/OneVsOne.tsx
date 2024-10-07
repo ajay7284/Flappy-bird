@@ -59,7 +59,6 @@ export default function OneVsOne() {
             }}
           >
             <motion.div
-              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               transition={{
                 type: "spring",
@@ -68,7 +67,7 @@ export default function OneVsOne() {
               }}
             >
               <motion.button
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.9 }}
                 className="game-button start-button"
                 onClick={() => setGameState("create-game")}
@@ -78,7 +77,6 @@ export default function OneVsOne() {
             </motion.div>
 
             <motion.div
-              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               transition={{
                 type: "spring",
@@ -87,7 +85,7 @@ export default function OneVsOne() {
               }}
             >
               <motion.button
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.9 }}
                 className="game-button start-button"
                 onClick={() => setGameState("join-game")}

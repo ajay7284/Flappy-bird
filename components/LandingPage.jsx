@@ -10,7 +10,7 @@ export default function LandingPage() {
       <div className="landing-page">
       <div className="content-wrapper">
         <h1 className="game-title">Bit Bird Multiplayer</h1>
-        <div className="button-container">
+        <div className="button-containerr">
           <Link href="/solo-game" className="game-button solo-button">
             Solo Game
           </Link>
