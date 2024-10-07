@@ -63,22 +63,7 @@ const GameLobby: React.FC<GameLobbyProps> = ({ gameState, setGameState ,lobbySta
         </div>
       </div>
     </div>
-       <motion.div
-       whileHover={{ scale: 1.1 }}
-       whileTap={{ scale: 0.9 }}
-       className="button-container"
-       style={{
-        margin:"0 auto",
-        marginTop: "20px",
-       }}
-       onClick={() => setGameState("menu")}
-       >
-        <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="game-button start-button"        
-        >Home</motion.button>
-      </motion.div>
+      
     </div>
       )
     }
