@@ -1,25 +1,25 @@
-.landing-page {
+/* .landing-page {
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
     align-items: center;
-  }
+  } */
   
-  .game-title {
+  /* .game-title {
     font-size: 4rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     margin-bottom: 2rem;
     animation: pulse 2s infinite;
-  }
+  } */
   
-  .button-container {
+  /* .button-container {
     display: flex;
     /* flex-direction: column; */
-    gap: 1rem;
-  }
-  
+    /* gap: 1rem;
+  } */ 
+/*   
   .game-button {
     font-size: 1.5rem;
     padding: 1rem 2rem;
@@ -42,6 +42,100 @@
   .game-button:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  } */
+  @font-face {
+    font-family: 'PixelFont';
+    src: url('/fonts/pixel-font.woff2') format('woff2');
+  }
+  
+  .landing-page {
+    width: 100%;
+    height: 100vh;
+    background-image: url('/images/game-background.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .content-wrapper {
+    text-align: center;
+  }
+  
+  .game-title {
+    font-family: 'PixelFont', sans-serif;
+    font-size: 4rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+    margin-bottom: 2rem;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .game-button {
+    font-family: 'PixelFont', sans-serif;
+    font-size: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .game-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+  }
+  
+  .solo-button {
+    background-color: #4CAF50;
+  }
+  
+  .vs-button {
+    background-color: #2196F3;
+  }
+  
+  .connect-wallet-button {
+    font-family: 'PixelFont', sans-serif;
+    font-size: 1rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .connect-wallet-button:hover {
+    background-color: #ff5252;
+  }
+  
+  .sound-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .sound-toggle img {
+    width: 2rem;
+    height: 2rem;
   }
   
   @keyframes pulse {
