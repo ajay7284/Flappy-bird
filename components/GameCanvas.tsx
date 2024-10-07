@@ -257,7 +257,7 @@ const GameCanvas: React.FC<GameCanvasProps> = ({ onGameOver, onScoreUpdate }) =>
   }, [gameState]); // Added gameState to the dependency array
 
   return (
-    <canvas ref={canvasRef} width={800} height={400} className="game-canvas" />
+    <canvas ref={canvasRef} width={800} height={600} className="game-canvas" />
   );
 };
 

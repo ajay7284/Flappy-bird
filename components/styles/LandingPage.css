@@ -233,3 +233,10 @@
   .sound-options-button-yes:hover {
     background-color: #059669; /* green-600 */
   }
+
+  
+@media (min-width: 360px) and (max-width: 720px) {
+  .button-containerr{
+    flex-direction: column;
+  }
+}

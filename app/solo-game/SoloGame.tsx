@@ -3,6 +3,7 @@ import React, { useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import GameCanvas from "@/components/GameCanvas";
+import {message} from 'antd'
 import { useAccount } from "wagmi";
 
 export default function SoloGame() {
@@ -12,6 +13,8 @@ export default function SoloGame() {
   const [countdown, setCountdown] = useState(3);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [walletMessage, setWalletMessage] = useState<string | null>(); // Wallet message state
+
 
 
 
@@ -26,7 +29,12 @@ export default function SoloGame() {
       setGameState("playing");
     }
   }, [gameState, countdown]);
+  console.log(address)
   const startGame = () => {
+    if(address === undefined) {
+      setWalletMessage("Connect wallet is required for playing the game"); // Show message
+      return
+    }
     setGameState("countdown");
     setCountdown(4);
     setScore(0);
@@ -106,6 +114,9 @@ const handleNavigateToHome = () => {
 
   return (
     <div className="solo-game">
+      {walletMessage && (
+        message.error(walletMessage)
+      )}
 
       {gameState === "countdown" ? (
         <div className="countdown-container">
