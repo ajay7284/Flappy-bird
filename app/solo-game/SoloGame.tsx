@@ -13,7 +13,6 @@ export default function SoloGame() {
   const [countdown, setCountdown] = useState(3);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [walletMessage, setWalletMessage] = useState<string | null>(); // Wallet message state
 
 
 
@@ -32,7 +31,7 @@ export default function SoloGame() {
   console.log(address)
   const startGame = () => {
     if(address === undefined) {
-      setWalletMessage("Connect wallet is required for playing the game"); // Show message
+      message.error("Connect wallet is required for playing the game"); // Show error message
       return
     }
     setGameState("countdown");
@@ -114,10 +113,7 @@ const handleNavigateToHome = () => {
 
   return (
     <div className="solo-game">
-      {walletMessage && (
-        message.error(walletMessage)
-      )}
-
+     
       {gameState === "countdown" ? (
         <div className="countdown-container">
           <h2 className="countdown">{countdown > 1 ? countdown - 1 : "Go!"}</h2>
