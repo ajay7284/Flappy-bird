@@ -9,6 +9,9 @@ import "../components/styles/LandingPage.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "./globals.css";
 import Achievement from "@/components/Achievement";
+import ClaimButton from "@/components/Claim";
+import { message } from "antd";
+
 
 const pressStart2P = Press_Start_2P({
   subsets: ["latin"],
@@ -23,10 +26,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const [showSoundPopup, setShowSoundPopup] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [isOpen , setIsOpen] = useState(false)
-  // const [gameState, setGameState] = useState<"menu" | "game">("menu");
+  const [pendingRewards, setPendingRewards] = useState<string>("0");
 
   const menuAudioRef = useRef<HTMLAudioElement | null>(null);
   const gameAudioRef = useRef<HTMLAudioElement | null>(null);
+ 
 
   // Load audio files
   useEffect(() => {
@@ -81,7 +85,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const handleNavigateToHome = () => {
     window.location.href = "/";
   };
-
+  
   return (
     <html lang="en">
       <body className={pressStart2P.className} style={{ overflow: "hidden" }}>
@@ -97,6 +101,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </Head>
             <div className="leaderboard-icon-container">
               <ConnectButton />
+              <ClaimButton />
               <div
                 className="image"
                 onClick={handleNavigateToHome}

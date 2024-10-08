@@ -67,11 +67,39 @@ export const setWinner = async (
     await tx.wait();
   };
 
-export const claimPendingReward = async () => {
-  const contract = await getContractInstance();
-  const tx = await contract.claimPendingReward();
-  await tx.wait();
-};
+  export const claimPendingReward = async () => {
+    try {
+      const contract = await getContractInstance();
+      const tx = await contract.claimPendingReward();
+      const receipt = await tx.wait();
+      
+      // Check for the RewardClaimed event
+      const rewardClaimedEvent = receipt.logs.find((log:any) => {
+        return log instanceof EventLog && log.eventName === 'RewardClaimed';
+      }) as EventLog | undefined;
+  
+      if (rewardClaimedEvent && rewardClaimedEvent.args) {
+        const claimedAmount = ethers.formatEther(rewardClaimedEvent.args.reward);
+        console.log(`Reward claimed: ${claimedAmount} ETH`);
+        return {
+          success: true,
+          amount: claimedAmount
+        };
+      } else {
+        console.log('Reward claimed, but no event found');
+        return {
+          success: true,
+          amount: '0'
+        };
+      }
+    } catch (error:any) {
+      console.error('Error claiming reward:', error);
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+  };
 
 export const getPendingRewards = async (address: string) => {
   const contract = await getContractInstance();
