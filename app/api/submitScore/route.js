@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb'; 
 import { ethers } from 'ethers';
-import { setWinner } from '@/components/ContractInstance';
+// import { setWinner } from '@/components/ContractInstance';
 
 // Make sure to set PRIVATE_KEY and RPC_URL in your environment variables
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const RPC_URL = process.env.RPC_URL;
-console.log("RPC",RPC_URL)
-if (!PRIVATE_KEY || !RPC_URL) {
-  throw new Error('PRIVATE_KEY or RPC_URL is not set in environment variables');
-}
+// const PRIVATE_KEY = process.env.PRIVATE_KEY;
+// const RPC_URL = process.env.RPC_URL;
+// console.log("RPC",RPC_URL)
+// if (!PRIVATE_KEY || !RPC_URL) {
+//   throw new Error('PRIVATE_KEY or RPC_URL is not set in environment variables');
+// }
 
 export async function POST(request) {
   try {
@@ -43,10 +43,10 @@ export async function POST(request) {
        try {
         const provider = new ethers.JsonRpcProvider(RPC_URL);
         console.log("Provider", provider)
-        const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
-        console.log("Wallet", wallet)
-        console.log("Pass GameId & Winner", gameId, winner)
-        await setWinner(gameId, winner, wallet);
+        // const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
+        // console.log("Wallet", wallet)
+        // console.log("Pass GameId & Winner", gameId, winner)
+        // await setWinner(gameId, winner, wallet);
 
         // Mark the game as settled in the database
         await db.collection("games").updateOne(
