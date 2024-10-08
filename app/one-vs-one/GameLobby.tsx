@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react'
+import "./gameLobby.css"
 import { motion } from "framer-motion";
 import "./OneVsOne.css";
 
