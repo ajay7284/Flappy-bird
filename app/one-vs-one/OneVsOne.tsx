@@ -1,33 +1,42 @@
 "use client";
+import { useRouter } from "next/navigation"
 import React, { useEffect, useRef, useState } from "react";
 import "./OneVsOne.css";
 import { motion } from "framer-motion";
 import GameLobby from "./GameLobby";
 import GameMain from "./GameMain";
+import { createGame, joinGame } from "@/components/ContractInstance";
+import {useAccount} from "wagmi";
+
+
 
 export default function OneVsOne() {
+  const router = useRouter();
   const [gameState, setGameState] = useState("menu");
-  const [digits, setDigits] = useState(["", "", "", "", "", ""]);
+  const [digits, setDigits] = useState("");
   const [lobbyStatus, setLobbyStatus] = useState("start");
+  const [isCreatingGame, setIsCreatingGame] = useState(false);
+  const [isJoiningGame, setIsJoiningGame] = useState(false);
+  const [error, setError] = useState("");
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const sixDigitNumber = "123456"; // Replace this with your actual number
+  const [sixDigitNumber, setSixDigitNumber] = useState("");
   const handleNavigateToHome = () => {
     window.location.href = "/";
   };
-  useEffect(() => {
-    inputRefs.current[0]?.focus();
-  }, []);
-  const handleInputChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return;
+  const inputRef = useRef<HTMLInputElement>(null); // Use a single input reference
+  const {address} = useAccount();
+  
+  const handleInputChange = (value: string) => {
+    // Ensure only digits are accepted and limit input length to 6
+    if (!/^\d*$/.test(value) || value.length > 6) return;
 
-    const newDigits = [...digits];
-    newDigits[index] = value.slice(-1);
-    setDigits(newDigits);
-
-    if (value && index < 5) {
-      inputRefs.current[index + 1]?.focus();
-    }
+    setDigits(value);
   };
+
+  useEffect(() => {
+    // Focus the input field on initial render
+    inputRef.current?.focus();
+  }, []);
 
   const handleKeyDown = (
     index: number,
@@ -35,6 +44,74 @@ export default function OneVsOne() {
   ) => {
     if (e.key === "Backspace" && !digits[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handleCreateGame = async () => {
+    setIsCreatingGame(true);
+    setError("");
+    try {
+      const gameId = await createGame("1"); // Stake amount in ETH
+      if(gameId){
+      const player1Address = address;
+      console.log("GameId and Player1Address",gameId,player1Address)
+      const response = await fetch('/api/createGame', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ gameId, player1Address }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to store game information');
+      }
+    }
+  
+     
+      console.log("GameID in 1vs1", gameId)
+      setSixDigitNumber(gameId)
+      setGameState("create-game");
+    } catch (error) {
+      console.error("Error creating game:", error);
+      setError("Failed to create game. Please try again.");
+    } finally {
+      setIsCreatingGame(false);
+    }
+  };
+
+
+  const handleJoinGame = async () => {
+    if (digits.length !== 6) {
+      setError("Please enter a valid 6-digit game ID.");
+      return;
+    }
+
+    setIsJoiningGame(true);
+    setError("");
+    try {
+      const joined = await joinGame(digits, "1"); // Stake amount in ETH
+      if (joined) {
+
+        const response = await fetch('/api/joinGame', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ gameId: digits, player2Address: address }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to store player 2 information');
+        }
+        setGameState("countdown");
+      } else {
+        setError("Failed to join the game. Please check the game ID and try again.");
+      }
+    } catch (error) {
+      console.error("Error joining game:", error);
+      setError("Failed to join game. Please try again.");
+    } finally {
+      setIsJoiningGame(false);
     }
   };
   return (
@@ -71,9 +148,10 @@ export default function OneVsOne() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="game-button start-button"
-                onClick={() => setGameState("create-game")}
+                onClick={handleCreateGame}
+                disabled={isCreatingGame}
               >
-                Create Game
+                {isCreatingGame ? "Creating..." : "Create Game"}
               </motion.button>
             </motion.div>
 
@@ -136,9 +214,12 @@ export default function OneVsOne() {
               whileTap={{ scale: 0.9 }}
               className="game-button start-button"
               style={{ marginTop: "20px" }}
-              onClick={() => setGameState("join-lobby")}
+              onClick={() => {
+                setGameState("countdown");
+                router.push(`/one-vs-one?gameId=${sixDigitNumber}`);
+              }}
             >
-              Join lobby
+              Start Game
             </motion.button>
           </motion.div>
         </div>
@@ -157,25 +238,23 @@ export default function OneVsOne() {
 
           <div className="room-id">
             <div className="number-display">
-              {digits.map((digit, index) => (
+      
+
+
                 <input
-                  key={index}
-                  ref={(el) => {
-                    inputRefs.current[index] = el;
-                  }}
-                  type="text"
-                  inputMode="numeric"
-                  value={digit}
-                  onChange={(e) => handleInputChange(index, e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(index, e)}
-                  className="digit"
-                  maxLength={1}
-                />
-              ))}
+                 
+                ref={inputRef} // Attach the single ref here
+                type="text"
+                inputMode="numeric"
+                value={digits}
+                onChange={(e) => handleInputChange(e.target.value)}
+                 className="digits"
+                maxLength={6} // Limit to 6 digits if needed
+              />
             </div>
             <p className="message">Enter the room ID</p>
           </div>
-
+          {error && <p className="error-message">{error}</p>}
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -186,13 +265,12 @@ export default function OneVsOne() {
             }}
           >
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
               className="game-button start-button"
               style={{ marginTop: "20px" }}
-              onClick={() => setGameState("join-lobby")}
+              onClick={handleJoinGame}
+              disabled={isJoiningGame}
             >
-              Join lobby
+              {isJoiningGame ? "Joining..." : "Join lobby"}
             </motion.button>
           </motion.div>
         </div>

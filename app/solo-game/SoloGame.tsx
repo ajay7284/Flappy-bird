@@ -35,6 +35,7 @@ export default function SoloGame() {
   const updateScore = useCallback((newScore: number) => {
     setScore(newScore);
   }, []);
+  
   const endGame = (finalScore: number) => {
     setGameState("gameOver");
     setScore(finalScore);
