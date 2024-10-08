@@ -16,7 +16,7 @@ export async function POST(request) {
         settled: false,
         createdAt: new Date()
       });
-  
+  console.log("Result", result)
       return NextResponse.json({ message: "Game created successfully", gameId }, { status: 201 });
     } catch (error) {
       return NextResponse.json({ message: "Error creating game", error: error.message }, { status: 500 });

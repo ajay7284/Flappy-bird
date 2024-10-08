@@ -18,7 +18,7 @@ export default function OneVsOne() {
   const [isCreatingGame, setIsCreatingGame] = useState(false);
   const [isJoiningGame, setIsJoiningGame] = useState(false);
   const [error, setError] = useState("");
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  // const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [sixDigitNumber, setSixDigitNumber] = useState("");
   const handleNavigateToHome = () => {
     window.location.href = "/";
@@ -38,14 +38,14 @@ export default function OneVsOne() {
     inputRef.current?.focus();
   }, []);
 
-  const handleKeyDown = (
-    index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (e.key === "Backspace" && !digits[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
+  // const handleKeyDown = (
+  //   index: number,
+  //   e: React.KeyboardEvent<HTMLInputElement>
+  // ) => {
+  //   if (e.key === "Backspace" && !digits[index] && index > 0) {
+  //     inputRefs.current[index - 1]?.focus();
+  //   }
+  // };
 
   const handleCreateGame = async () => {
     setIsCreatingGame(true);

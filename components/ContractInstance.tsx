@@ -1,4 +1,4 @@
-import { ethers, ContractTransactionReceipt, Log, EventLog } from 'ethers';
+import { ethers, ContractTransactionReceipt, EventLog } from 'ethers';
 import artifacts from '../contracts/artifacts/BitBirdGameABI.json';
 
 const contractAddress = '0x7cF631e6EA4be71b1F230eCb72490DBCeACa2189'; // Replace with your deployed contract address
