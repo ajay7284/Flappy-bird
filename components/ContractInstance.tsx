@@ -1,8 +1,8 @@
 import { ethers, ContractTransactionReceipt, EventLog } from 'ethers';
 import artifacts from '../contracts/artifacts/BitBirdGameABI.json';
 
-const contractAddress = '0x7cF631e6EA4be71b1F230eCb72490DBCeACa2189'; // Replace with your deployed contract address
-
+// const contractAddress = '0x7cF631e6EA4be71b1F230eCb72490DBCeACa2189'; // Replace with your deployed contract address
+const contractAddress='0xeAa89A92806aaafD5e4829259DEa675E932038A4';
 let contract: ethers.Contract | null = null;
 
 export const getContractInstance = async () => {

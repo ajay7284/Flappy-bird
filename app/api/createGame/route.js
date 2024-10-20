@@ -4,6 +4,7 @@ export async function POST(request) {
     try {
       const { gameId, player1Address } = await request.json();
       const client = await connectDB();
+      console.log("db connected")
       const db = client.db("bitbird");
       
       const result = await db.collection("games").insertOne({
