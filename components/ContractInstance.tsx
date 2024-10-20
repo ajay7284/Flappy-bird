@@ -74,7 +74,7 @@ export const setWinner = async (
       const receipt = await tx.wait();
       
       // Check for the RewardClaimed event
-      const rewardClaimedEvent = receipt.logs.find((log:any) => {
+      const rewardClaimedEvent = receipt.logs.find((log) => {
         return log instanceof EventLog && log.eventName === 'RewardClaimed';
       }) as EventLog | undefined;
   
@@ -92,11 +92,10 @@ export const setWinner = async (
           amount: '0'
         };
       }
-    } catch (error:any) {
-      console.error('Error claiming reward:', error);
+    } catch (error) {
+      console.error('Error claiming reward');
       return {
         success: false,
-        error: error.message
       };
     }
   };

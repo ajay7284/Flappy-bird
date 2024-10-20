@@ -10,7 +10,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "./globals.css";
 import Achievement from "@/components/Achievement";
 import ClaimButton from "@/components/Claim";
-import { message } from "antd";
+// import { message } from "antd";
 
 
 const pressStart2P = Press_Start_2P({
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const [showSoundPopup, setShowSoundPopup] = useState(true);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [isOpen , setIsOpen] = useState(false)
-  const [pendingRewards, setPendingRewards] = useState<string>("0");
+  // const [pendingRewards, setPendingRewards] = useState<string>("0");
 
   const menuAudioRef = useRef<HTMLAudioElement | null>(null);
   const gameAudioRef = useRef<HTMLAudioElement | null>(null);

@@ -32,7 +32,7 @@ export async function POST(request) {
         { gameId },
         { $set: { [updateField]: score, updatedAt: new Date() } }
       );
-
+console.log(result)
     // Check if both scores are submitted and determine the winner
     const updatedGame = await db.collection("games").findOne({ gameId });
     if (
